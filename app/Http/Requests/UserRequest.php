@@ -24,9 +24,17 @@ class UserRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'title' => 'required|string|max:90',
-            'content' => 'required|string|max:3000',
+            'name' => 'required|string|max:40',
+            'email' => 'required|email|max:90|unique:users',
+            'password' => 'required|string|min:8|max:40|confirmed',
         ];
+
+        if ($this->method() === 'PUT')
+        {
+            $rules['email'] = 'required|email|max:90|unique:users,email,'.$this->route('user');
+            $rules['password'] = 'sometimes|nullable|string|confirmed|min:8|max:40';
+        }
+
         return $rules;
     }
 }

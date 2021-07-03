@@ -9,11 +9,11 @@
     <meta name="description-gambolthemes" content="">
     <meta name="author-gambolthemes" content="">
     <title>Login Admin</title>
-    <link rel="stylesheet" href="{{asset('admin_assets/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/admin/dist/css/adminlte.min.css')}}">
 
 
     <!-- Vendor Stylesheets -->
-    <link rel="stylesheet" href="{{asset('admin_assets/plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/admin/plugins/fontawesome-free/css/all.min.css')}}">
 
 </head>
 
@@ -62,18 +62,11 @@
         </main>
     </div>
 </div>
-<script src="{{asset('admin_assets/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('assets/admin/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
-<script src="{{asset('admin_assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE -->
-<script src="{{asset('admin_assets/dist/js/adminlte.js')}}"></script>
-
-<!-- OPTIONAL SCRIPTS -->
-<script src="{{asset('admin_assets/plugins/chart.js/Chart.min.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{asset('admin_assets/dist/js/demo.js')}}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('admin_assets/dist/js/pages/dashboard3.js')}}"></script>
+<script src="{{asset('assets/admin/dist/js/adminlte.js')}}"></script>
 
 </body>
 </html>

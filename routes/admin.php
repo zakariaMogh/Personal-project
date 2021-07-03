@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('login',[\App\Http\Controllers\Admin\Auth\AdminLoginController::class,'index'])->name('login.index');
+Route::post('login',[\App\Http\Controllers\Admin\Auth\AdminLoginController::class,'login'])->name('login');
 
-Route::resource('posts', \App\Http\Controllers\Admin\PostController::class)->except(['create', 'store']);
-Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+Route::middleware('auth:admin')->group(function (){
+    Route::any('logout',[\App\Http\Controllers\Admin\Auth\AdminLoginController::class,'logout'])->name('logout');
+    Route::resource('posts', \App\Http\Controllers\Admin\PostController::class)->except(['create', 'store']);
+    Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+});
+

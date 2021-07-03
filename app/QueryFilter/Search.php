@@ -22,6 +22,14 @@ class Search extends Filter
             return $builder->where('title','like','%'.$q.'%');
         }
 
+        if (request()->is([
+            'admin/users*'
+        ]))
+        {
+            return $builder->where('name','like','%'.$q.'%')
+                ->orWhere('email','like','%'.$q.'%');
+        }
+
         return $builder;
     }
 }

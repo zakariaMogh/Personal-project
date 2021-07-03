@@ -8,12 +8,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Ajouter lgine</h1>
+                        <h1>Show user</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
 {{--                            <li class="breadcrumb-item"><a href="#">Home</a></li>--}}
-                            <li class="breadcrumb-item active">Les lignes</li>
+                            <li class="breadcrumb-item active">Users</li>
                         </ol>
                     </div>
                 </div>
@@ -25,17 +25,30 @@
             <div class="container-fluid">
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post" action="{{route('admin.lines.store')}}">
-                    @csrf
+                <div >
+
                     <div class="card-body">
-                        @include('admin.lines.form')
+                        <div class="form-group">
+                            <label for="title">Name</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="title" disabled
+                                   value="{{$user->name}}">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="content">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="title" disabled
+                                   value="{{$user->email}}">
+
+                        </div>
+
                     </div>
                     <!-- /.card-body -->
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Ok</button>
+                    <div class="card-footer d-flex justify-content-end">
+                        <a class="btn btn-secondary text-white mr-2" href="{{route('admin.users.index')}}">Back</a>
                     </div>
-                </form>
+                </div>
             </div>
 
             <!-- /.card -->
