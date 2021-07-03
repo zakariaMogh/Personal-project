@@ -16,7 +16,8 @@ class Search extends Filter
         }
 
         if (request()->is([
-            'admin/posts*'
+            'admin/posts*',
+            'home'
         ]))
         {
             return $builder->where('title','like','%'.$q.'%');

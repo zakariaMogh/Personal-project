@@ -86,7 +86,7 @@
                             <!-- /.card-body -->
                         </div>
                         <div class="card-footer d-flex justify-content-center pt-4">
-                            {{$users->links()}}
+                            {{$users->withQueryString()->links()}}
                         </div>
                         <!-- /.card -->
                     </div>
