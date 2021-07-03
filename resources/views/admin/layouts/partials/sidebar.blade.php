@@ -37,6 +37,17 @@
                         </p>
                     </a>
                 </li>
+
+                <li class="nav-item {{request()->is('admin/categories*') ? 'menu-open' : ''}}">
+                    <a href="{{route('admin.categories.index')}}"
+                       class="nav-link {{request()->is('admin/categories*') ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Categories
+                        </p>
+                    </a>
+                </li>
+
                 <li class="nav-item {{request()->is('admin/users*') ? 'menu-open' : ''}}">
                     <a href="{{route('admin.users.index')}}"
                        class="nav-link {{request()->is('admin/users*') ? 'active' : ''}}">

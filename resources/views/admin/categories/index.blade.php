@@ -8,12 +8,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Posts</h1>
+                        <h1>Categories</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
 {{--                            <li class="breadcrumb-item"><a href="#">Home</a></li>--}}
-                            <li class="breadcrumb-item active">Posts</li>
+                            <li class="breadcrumb-item active">Categories</li>
                         </ol>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                         <div class="card">
                             @include('admin.layouts.partials.messages')
                             <div class="card-header">
-                                <a href="{{route('admin.posts.create')}}" class="btn btn-primary">Add post</a>
+                                <a href="{{route('admin.categories.create')}}" class="btn btn-primary">Add category</a>
 
                                 <div class="card-tools">
                                     <form >
@@ -54,26 +54,24 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-{{--                                        <th>User</th>--}}
-                                        <th>Title</th>
+                                        <th>Name</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($posts as $key => $post)
+                                    @foreach($categories as $key => $category)
                                         <tr>
                                             <td>{{$key + 1}}</td>
-{{--                                            <td>{{$post->user->name}}</td>--}}
-                                            <td>{{$post->title}}</td>
+                                            <td>{{$category->name}}</td>
                                             <td class="d-flex">
-                                                <a href="{{route('admin.posts.show', $post->id)}}" class="edit-btn mr-3" title="Edit"><i class="fas fa-eye"></i></a>
-                                                <a href="{{route('admin.posts.edit', $post->id)}}" class="edit-btn" title="Edit"><i class="fas fa-edit"></i></a>
-                                                <button class="delete-btn btn py-0 border-0" onclick="return confirm('Are you sure you want to delete this post ?')"
-                                                        id="delete-post" form="delete-post-form-{{$post->id}}">
+                                                <a href="{{route('admin.categories.show', $category->id)}}" class="edit-btn mr-3" title="Edit"><i class="fas fa-eye"></i></a>
+                                                <a href="{{route('admin.categories.edit', $category->id)}}" class="edit-btn" title="Edit"><i class="fas fa-edit"></i></a>
+                                                <button class="delete-btn btn py-0 border-0" onclick="return confirm('Are you sure you want to delete this category ?')"
+                                                        id="delete-category" form="delete-category-form-{{$category->id}}">
                                                     <i class="fas fa-trash-alt text-primary"></i>
                                                 </button>
-                                                <form action="{{route('admin.posts.destroy', $post->id)}}" method="post"
-                                                      id="delete-post-form-{{$post->id}}">
+                                                <form action="{{route('admin.categories.destroy', $category->id)}}" method="post"
+                                                      id="delete-category-form-{{$category->id}}">
                                                     @csrf
                                                     @method('delete')
                                                 </form>
@@ -86,7 +84,7 @@
                             <!-- /.card-body -->
                         </div>
                         <div class="card-footer d-flex justify-content-center pt-4">
-                            {{$posts->withQueryString()->links()}}
+                            {{$categories->withQueryString()->links()}}
                         </div>
                         <!-- /.card -->
                     </div>

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
@@ -13,11 +14,18 @@ class Post extends Model
     protected $fillable = [
         'content',
         'title',
-        'cover'
+        'cover',
+        'slug'
     ];
 
-    public function user(): BelongsTo
+
+//    public function user(): BelongsTo
+//    {
+//        return $this->belongsTo(User::class);
+//    }
+
+    public function categories(): BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(Category::class);
     }
 }

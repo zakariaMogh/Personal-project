@@ -6,7 +6,7 @@ namespace App\Contracts;
 
 use App\Contracts\Base\CrudContract;
 
-interface UserContract extends CrudContract
+interface CategoryContract extends CrudContract
 {
     //
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class RepositoryServiceProvider extends ServiceProvider
 {
     protected $repos = [
+        \App\Contracts\CategoryContract::class => \App\Repositories\CategoryRepository::class,
         \App\Contracts\UserContract::class => \App\Repositories\UserRepository::class,
         \App\Contracts\PostContract::class => \App\Repositories\PostRepository::class,
     ];

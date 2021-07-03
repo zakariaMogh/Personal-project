@@ -3,18 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contracts\CategoryContract;
-use App\Contracts\PostContract;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostRequest;
+use App\Http\Requests\CategoryRequest;
 
-class PostController extends Controller
+class CategoryController extends Controller
 {
-    protected $post;
     protected $category;
 
-    public function __construct(PostContract $post, CategoryContract $category)
+    public function __construct(CategoryContract $category)
     {
-        $this->post = $post;
         $this->category = $category;
     }
 
@@ -25,8 +22,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = $this->post->findByFilter(10);
-        return view('admin.posts.index',compact('posts'));
+        $categories = $this->category->findByFilter(10);
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -36,8 +33,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = $this->category->findByFilter();
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.categories.create');
     }
 
     /**
@@ -47,13 +43,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(CategoryRequest $request)
     {
-        $this->post->new($request->validated());
-
         try {
-            session()->flash('success',__('messages.create',['name' => __('messages.post')]));
-            return redirect()->route('admin.posts.index');
+            $this->category->new($request->validated());
+            session()->flash('success',__('messages.create',['name' => __('messages.category')]));
+            return redirect()->route('admin.categories.index');
         }catch (\Exception $exception)
         {
             session()->flash('error',__('messages.fails'));
@@ -69,8 +64,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = $this->post->findOneById($id);
-        return view('admin.posts.show',compact('post'));
+        $category = $this->category->findOneById($id);
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
@@ -81,9 +76,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = $this->post->findOneById($id);
-        $categories = $this->category->findByFilter();
-        return view('admin.posts.edit',compact('post', 'categories'));
+        $category = $this->category->findOneById($id);
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -93,12 +87,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         try {
-            $this->post->update($id, $request->validated());
-            session()->flash('success',__('messages.update',['name' => __('messages.post')]));
-            return redirect()->route('admin.posts.index');
+            $this->category->update($id, $request->validated());
+            session()->flash('success',__('messages.update',['name' => __('messages.category')]));
+            return redirect()->route('admin.categories.index');
         }catch (\Exception $exception)
         {
             session()->flash('error',__('messages.fails'));
@@ -115,9 +109,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         try {
-            $this->post->destroy($id);
-            session()->flash('success',__('messages.delete',['name' => __('messages.post')]));
-            return redirect()->route('admin.posts.index');
+            $this->category->destroy($id);
+            session()->flash('success',__('messages.delete',['name' => __('messages.category')]));
+            return redirect()->route('admin.categories.index');
         }catch (\Exception $exception)
         {
             session()->flash('error',__('messages.fails'));

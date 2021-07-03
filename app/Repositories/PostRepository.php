@@ -5,8 +5,10 @@ namespace App\Repositories;
 
 
 use App\Models\Post;
+use App\QueryFilter\Category;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 
 class PostRepository extends BaseRepositories implements \App\Contracts\PostContract
 {
@@ -29,7 +31,10 @@ class PostRepository extends BaseRepositories implements \App\Contracts\PostCont
     public function findByFilter($per_page = 10, array $relations = [], array $columns = ['*'], array $scopes = [])
     {
         $query = Post::with($relations)->select($columns)->scopes($scopes)->newQuery();
-        return $this->applyFilter($query, $per_page);
+        return $this->applyFilter($query, $per_page,
+        [
+            Category::class,
+        ]);
     }
 
 
@@ -41,6 +46,8 @@ class PostRepository extends BaseRepositories implements \App\Contracts\PostCont
         if (array_key_exists('cover', $data) && $data['cover'] instanceof UploadedFile) {
             $data['cover'] = $this->uploadOne($data['cover'], 'post');
         }
+        $data['slug'] = Str::slug($data['title']);
+
         return Post::create($data);
     }
 
@@ -57,8 +64,10 @@ class PostRepository extends BaseRepositories implements \App\Contracts\PostCont
             }
             $data['cover'] = $this->uploadOne($data['cover'], 'post');
         }
-
+        $data['slug'] = Str::slug($data['title']);
         $post->update($data);
+
+        $post->categories()->sync($data['categories']);
         return $post;
     }
 

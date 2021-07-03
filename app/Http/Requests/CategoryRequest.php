@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,12 @@ class PostRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'title' => 'required|string|max:90|unique:posts,title',
-            'content' => 'required|string|max:3000',
-            'categories' => 'nullable|sometimes|array|min:1',
-            'categories.*' => 'nullable|sometimes|integer|exists:categories,id',
+            'name' => 'required|string|max:40|unique:categories',
         ];
 
         if ($this->method() === 'PUT')
         {
-            $rules['title'] = 'required|string|max:90|unique:posts,title,'.$this->route('post');
+            $rules['name'] = 'required|string|max:90|unique:categories,title,'.$this->route('category');
         }
 
         return $rules;
