@@ -13,9 +13,9 @@ class PostController extends Controller
         $this->post = $post;
 
     }
-    public function show($id)
+    public function show($slug)
     {
-        $post = $this->post->findOneById($id, ['categories']);
+        $post = $this->post->findOneBySlug($slug, ['categories']);
         return view('front.posts.show', compact('post'));
     }
 }

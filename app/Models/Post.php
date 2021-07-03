@@ -19,10 +19,10 @@ class Post extends Model
     ];
 
 
-//    public function user(): BelongsTo
-//    {
-//        return $this->belongsTo(User::class);
-//    }
+    public function getImgUrlAttribute()
+    {
+        return $this->cover ? 'storage/'.$this->cover : 'assets/front/images/default-post.png';
+    }
 
     public function categories(): BelongsToMany
     {

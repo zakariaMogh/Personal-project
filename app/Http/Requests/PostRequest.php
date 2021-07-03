@@ -28,6 +28,7 @@ class PostRequest extends FormRequest
             'content' => 'required|string|max:3000',
             'categories' => 'nullable|sometimes|array|min:1',
             'categories.*' => 'nullable|sometimes|integer|exists:categories,id',
+            'cover' => 'sometimes|nullable|file|image|max:2024',
         ];
 
         if ($this->method() === 'PUT')

@@ -28,6 +28,18 @@ class PostRepository extends BaseRepositories implements \App\Contracts\PostCont
     /**
      * @inheritDoc
      */
+    public function findOneBySlug($slug, array $relations = [], array $columns = ['*'], array $scopes = [])
+    {
+        return Post::with($relations)
+            ->select($columns)
+            ->scopes($scopes)
+            ->where('slug', $slug)
+            ->first();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function findByFilter($per_page = 10, array $relations = [], array $columns = ['*'], array $scopes = [])
     {
         $query = Post::with($relations)->select($columns)->scopes($scopes)->newQuery();

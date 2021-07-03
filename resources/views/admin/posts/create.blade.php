@@ -25,7 +25,7 @@
             <div class="container-fluid">
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="POST" action="{{route('admin.posts.store')}}">
+                <form method="POST" action="{{route('admin.posts.store')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         @include('admin.posts.form')

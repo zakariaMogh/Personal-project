@@ -29,12 +29,12 @@
                     <div class="col-lg-6">
                         <!-- Blog post-->
                         <div class="card mb-4">
-                            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                            <a href="#!"><img class="card-img-top" src="{{asset($post->img_url)}}" alt="{{$post->title}}" /></a>
                             <div class="card-body">
                                 <div class="small text-muted">{{$post->created_at->format('F d, Y')}}</div>
                                 <h2 class="card-title h4">{{\Illuminate\Support\Str::limit($post->title, 30, '...')}}</h2>
                                 <p class="card-text">{{\Illuminate\Support\Str::limit($post->content, 100, '...')}}</p>
-                                <a class="btn btn-primary" href="{{route('posts.show', $post->id)}}">Read more →</a>
+                                <a class="btn btn-primary" href="{{route('posts.show', $post->slug)}}">Read more →</a>
                             </div>
                         </div>
                     </div>

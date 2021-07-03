@@ -35,3 +35,15 @@
     {{$message}}
 </div>
 @enderror
+
+<div class="form-group">
+    <label for="content">Cover</label>
+    <input type="file" class="form-control @error('cover') is-invalid @enderror" id="cover" name="cover"
+           placeholder="cover">
+
+</div>
+@error('cover')
+<div class="text-danger">
+    {{$message}}
+</div>
+@enderror

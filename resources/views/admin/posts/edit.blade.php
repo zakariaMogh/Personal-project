@@ -25,7 +25,7 @@
             <div class="container-fluid">
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post" action="{{route('admin.posts.update', $post->id)}}">
+                <form method="post" action="{{route('admin.posts.update', $post->id)}}" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <div class="card-body">
