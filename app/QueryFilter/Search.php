@@ -15,6 +15,13 @@ class Search extends Filter
             return $builder;
         }
 
-        return $builder->where('title','like','%'.$q.'%');
+        if (request()->is([
+            'admin/posts*'
+        ]))
+        {
+            return $builder->where('title','like','%'.$q.'%');
+        }
+
+        return $builder;
     }
 }
