@@ -9,25 +9,77 @@
             </div>
         </div>
     </header>
-    <div class="container">
+    <div class="container mb-5">
         <div class="row">
             <!-- Side widgets-->
-            <div class="col-lg-4">
-                info
+            <div class="col-lg-4 d-flex flex-column justify-content-center">
+                <h6>Name : </h6>
+                <p>Zakaria Dehaba</p>
+                <h6>Email : </h6>
+                <p>Zakaria.dehaba@gmail.com</p>
+                <h6>Address : </h6>
+                <p>07 chidekh med smk Constantine, Algeria</p>
             </div>
             <!-- Blog entries-->
             <div class="col-lg-8">
-                <div class="row">
-                    <div class="col-lg-6">
-                        email
+                @if(session('rate_limit'))
+                    <span class="text-danger small">
+                                    <i class="fas fa-info-circle mr-1"></i>{{session('rate_limit')}}
+                                    </span>
+                @endif
+
+                @if(session()->has('success'))
+                    <div class="alert alert-success alert-dismissible">
+                        <strong>Success!</strong> {{session()->get('success')}}.
                     </div>
-                    <div class="col-lg-6">
-                        subject
+                @endif
+
+                @if(session()->has('error'))
+                    <div class="alert alert-danger alert-dismissible">
+                        <strong>Error!</strong> {{session()->get('error')}}.
                     </div>
-                    <div class="col-lg-12">
-                        description
+                @endif
+
+                <form class="row" method="post" action="{{route('contact.store')}}">
+                    @csrf
+                    <div class="col-lg-12 mb-2">
+                        <label for="email">Email :</label>
+                        <input type="text" class="form-control @error('description') is-invalid @enderror"
+                               name="email" id="email" placeholder="email@example.com">
+                        @error('email')
+                        <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                        @enderror
                     </div>
-                </div>
+                    <div class="col-lg-12 mb-2">
+                        <label for="subject">Subject :</label>
+                        <input type="text" class="form-control @error('description') is-invalid @enderror"
+                               name="subject" id="subject" placeholder="subject">
+                        @error('subject')
+                        <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                        @enderror
+                    </div>
+                    <div class="col-lg-12 mb-2">
+                        <label for="description ">Description :</label>
+                        <textarea name="description" id="description" cols="30" rows="10"
+                                  class="form-control @error('description') is-invalid @enderror"
+                                  placeholder="Description"></textarea>
+                        @error('description')
+                        <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                        @enderror
+                    </div>
+                    <div class="col-lg-12 d-flex justify-content-end">
+                        <button class="btn btn-primary ">
+                            Submit
+                        </button>
+                    </div>
+
+                </form>
             </div>
 
         </div>

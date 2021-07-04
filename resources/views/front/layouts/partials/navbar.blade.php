@@ -5,7 +5,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav  mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link {{request()->is('home') ? 'active' : ''}}" href="{{route('home')}}">Home</a></li>
-                <li class="nav-item"><a class="nav-link {{request()->is('contact') ? 'active' : ''}}" href="#!">Contact</a></li>
+                <li class="nav-item"><a class="nav-link {{request()->is('contact') ? 'active' : ''}}" href="{{route('contact')}}">Contact</a></li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @auth('user')

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -22,7 +22,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = \App\Providers\RouteServiceProvider::ADMIN_HOME;
+    protected $redirectTo = \App\Providers\RouteServiceProvider::HOME;
 
     /**
      * Display the password reset view for the given token.
@@ -35,7 +35,7 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(Request $request, string $token = null)
     {
-        return view('admin.auth.passwords.reset')->with(
+        return view('front.auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->get('email')]
         );
     }
@@ -170,7 +170,7 @@ class ResetPasswordController extends Controller
      */
     public function broker(): PasswordBroker
     {
-        return Password::broker('admins');
+        return Password::broker('users');
     }
 
     /**
@@ -180,7 +180,7 @@ class ResetPasswordController extends Controller
      */
     protected function guard(): StatefulGuard
     {
-        return auth('admin');
+        return auth('user');
     }
 
     /**

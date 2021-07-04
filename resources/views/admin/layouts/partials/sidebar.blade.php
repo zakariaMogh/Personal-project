@@ -20,18 +20,18 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-{{--                                <li class="nav-item">--}}
-{{--                                    <a href="{{route('admin.dashboard')}}" class="nav-link {{request()->is('admin') ? 'active' : ''}}">--}}
-{{--                                        <i class="nav-icon fas fa-th"></i>--}}
-{{--                                        <p>--}}
-{{--                                            Dashboard--}}
-{{--                                        </p>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
+                <li class="nav-item">
+                    <a href="{{route('admin.home')}}" class="nav-link {{request()->is('admin') ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item {{request()->is('admin/posts*') ? 'menu-open' : ''}}">
                     <a href="{{route('admin.posts.index')}}"
                        class="nav-link {{request()->is('admin/posts*') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon far fa-clipboard"></i>
                         <p>
                             Posts
                         </p>
@@ -41,7 +41,7 @@
                 <li class="nav-item {{request()->is('admin/categories*') ? 'menu-open' : ''}}">
                     <a href="{{route('admin.categories.index')}}"
                        class="nav-link {{request()->is('admin/categories*') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-sitemap"></i>
                         <p>
                             Categories
                         </p>
@@ -51,7 +51,7 @@
                 <li class="nav-item {{request()->is('admin/users*') ? 'menu-open' : ''}}">
                     <a href="{{route('admin.users.index')}}"
                        class="nav-link {{request()->is('admin/users*') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             Users
                         </p>

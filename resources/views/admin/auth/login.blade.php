@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description-gambolthemes" content="">
     <meta name="author-gambolthemes" content="">
-    <title>Login Admin</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="{{asset('assets/admin/dist/css/adminlte.min.css')}}">
 
 
@@ -26,7 +26,7 @@
                     <div class="col-lg-5">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header card-sign-header">
-                                <h3 class="text-center font-weight-light my-4">S'identifier</h3>
+                                <h3 class="text-center font-weight-light my-4">Admin Login</h3>
                             </div>
                             <div class="card-body">
                                 @if(session()->has('error'))
@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label class="form-label" for="inputEmailAddress">Email</label>
                                         <input class="form-control py-3" id="inputEmailAddress" type="email"
-                                               placeholder="Adresse Email" name="email">
+                                               placeholder="Email" name="email">
                                     </div>
                                     @error('email')
                                     <span class="text-danger" >
@@ -48,9 +48,9 @@
                                     @enderror
 
                                     <div class="form-group">
-                                        <label class="form-label" for="inputPassword">Mot de passe</label>
+                                        <label class="form-label" for="inputPassword">Password</label>
                                         <input class="form-control py-3" id="inputPassword" type="password"
-                                               placeholder="Mot de passe" name="password">
+                                               placeholder="********" name="password">
                                     </div>
                                     @error('password')
                                     <span class="text-danger" >
@@ -58,9 +58,17 @@
                                     </span>
                                     @enderror
 
-                                    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <button class="btn btn-sign hover-btn" >S'identifier</button>
+                                    <div class="form-group d-flex align-items-center justify-content-end mt-4 mb-0">
+                                        <button class="btn btn-sign hover-btn btn-primary">Login</button>
                                     </div>
+
+                                    <p class="mt-3">
+                                        <a href="{{route('admin.forgot.password.email')}}" class="text-decoration-none text-dark"><u>Forgot password ?</u></a>
+                                    </p>
+
+                                    <p class="mt-3">
+                                        <a href="{{route('home')}}" class="text-decoration-none text-dark"><u>Back to home</u></a>
+                                    </p>
                                 </form>
                             </div>
                         </div>

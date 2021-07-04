@@ -26,7 +26,7 @@
                     <div class="col-lg-5">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header card-sign-header">
-                                <h3 class="text-center font-weight-light my-4">Login</h3>
+                                <h3 class="text-center font-weight-light my-4">Reset password</h3>
                             </div>
                             <div class="card-body">
                                 @if(session()->has('error'))
@@ -34,12 +34,14 @@
                                         <div class="alert alert-danger">{{session('error')}}</div>
                                     </div>
                                 @endif
-                                <form action="{{route('login')}}" method="post">
+                                <form action="{{route('reset')}}" method="post">
                                     @csrf
+                                    <input type="hidden" name="token" value="{{$token}}">
+
                                     <div class="form-group">
                                         <label class="form-label" for="inputEmailAddress">Email</label>
                                         <input class="form-control py-3" id="inputEmailAddress" type="email"
-                                               placeholder="Email" name="email">
+                                               placeholder="Adresse Email" name="email">
                                     </div>
                                     @error('email')
                                     <span class="text-danger" >
@@ -58,23 +60,18 @@
                                     </span>
                                     @enderror
 
-                                    <div class="form-check ">
-                                        <input class="form-check-input" type="checkbox" name="remember_me" id="remember">
-                                        <label class="form-check-label" for="remember">
-                                            Stay connected
-                                        </label>
+                                    <div class="form-group">
+                                        <label class="form-label" for="inputPassword">Confirm password</label>
+                                        <input class="form-control py-3" id="inputPassword" type="password"
+                                               placeholder="********" name="password_confirmation">
                                     </div>
+
 
                                     <div class="form-group d-flex align-items-center justify-content-end mt-4 mb-0">
-                                        <button class="btn btn-sign hover-btn btn-primary">Login</button>
+                                        <button class="btn btn-sign hover-btn btn-primary">Save</button>
                                     </div>
 
-                                    <p class="mt-3">
-                                        <a href="{{route('forgot.password.email')}}" class="text-decoration-none text-dark"><u>Forgot password ?</u></a>
-                                    </p>
-                                    <p class="mt-3">
-                                        <a href="{{route('home')}}" class="text-decoration-none text-dark"><u>Back to home</u></a>
-                                    </p>
+
                                 </form>
                             </div>
                         </div>

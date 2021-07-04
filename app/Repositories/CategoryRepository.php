@@ -46,10 +46,10 @@ class CategoryRepository extends BaseRepositories implements \App\Contracts\Cate
      */
     public function update($id, array $data)
     {
-        $post = $this->findOneById($id);
+        $category = $this->findOneById($id);
         $data['slug'] = Str::slug($data['name']);
-        $post->update($data);
-        return $post;
+        $category->update($data);
+        return $category;
     }
 
     /**
@@ -57,8 +57,8 @@ class CategoryRepository extends BaseRepositories implements \App\Contracts\Cate
      */
     public function destroy($id)
     {
-        $post = $this->findOneById($id);
-        return $post->delete();
+        $category = $this->findOneById($id);
+        return $category->delete();
     }
 
 }

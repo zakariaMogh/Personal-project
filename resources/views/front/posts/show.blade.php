@@ -57,8 +57,8 @@
                                         {{ $message }}
                                     </span>
                                 @enderror
-                                <div class=" text-right">
-                                    <button type="submit" class="form-control">Submit</button>
+                                <div class="d-flex justify-content-end mt-1">
+                                    <button type="submit" class="form-control w-25 btn btn-primary">Submit</button>
 
                                 </div>
                             </form>

@@ -29,7 +29,7 @@ class CategoryRequest extends FormRequest
 
         if ($this->method() === 'PUT')
         {
-            $rules['name'] = 'required|string|max:90|unique:categories,title,'.$this->route('category');
+            $rules['name'] = 'required|string|max:90|unique:categories,name,'.$this->route('category');
         }
 
         return $rules;

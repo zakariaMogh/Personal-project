@@ -10,7 +10,7 @@
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
         <a href="{{route('admin.logout')}}">
-            Déconnecter
+            Disconnect
         </a>
 
     </ul>
