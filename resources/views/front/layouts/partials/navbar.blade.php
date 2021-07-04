@@ -12,6 +12,7 @@
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="#">{{auth()->guard('user')->user()->name}}</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{route('logout')}}">Logout</a></li>
                 @else
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="{{route('register.index')}}">Register</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{route('login.index')}}">Login</a></li>
                 @endauth
             </ul>

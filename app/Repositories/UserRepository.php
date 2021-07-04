@@ -5,12 +5,10 @@ namespace App\Repositories;
 
 
 use App\Models\User;
-use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
 
 class UserRepository extends BaseRepositories implements \App\Contracts\UserContract
 {
-    use UploadAble;
     /**
      * @inheritDoc
      */
@@ -33,10 +31,6 @@ class UserRepository extends BaseRepositories implements \App\Contracts\UserCont
      */
     public function new(array $data)
     {
-        if (array_key_exists('pic',$data) && $data['pic'] instanceof UploadedFile)
-        {
-            $data['pic'] = $this->uploadOne($data['pic'],'user');
-        }
         $data['password'] = bcrypt($data['password']);
         return User::create($data);
     }
@@ -47,15 +41,6 @@ class UserRepository extends BaseRepositories implements \App\Contracts\UserCont
     public function update($id, array $data)
     {
         $user = $this->findOneById($id);
-
-        if (array_key_exists('pic',$data) && $data['pic'] instanceof UploadedFile)
-        {
-            if ($user->pic)
-            {
-                $this->deleteOne($id);
-            }
-            $data['pic'] = $this->uploadOne($data['pic'],'user');
-        }
 
         if (isset($data['password']))
         {
@@ -74,11 +59,6 @@ class UserRepository extends BaseRepositories implements \App\Contracts\UserCont
     public function destroy($id)
     {
         $user = $this->findOneById($id);
-
-        if ($user->pic)
-        {
-            $this->deleteOne($user->pic);
-        }
 
         return $user->delete();
     }

@@ -58,6 +58,13 @@
                                     </span>
                                     @enderror
 
+                                    <div class="form-check ">
+                                        <input class="form-check-input" type="checkbox" name="remember_me" id="remember">
+                                        <label class="form-check-label" for="remember">
+                                            Stay connected
+                                        </label>
+                                    </div>
+
                                     <div class="form-group d-flex align-items-center justify-content-end mt-4 mb-0">
                                         <button class="btn btn-sign hover-btn btn-primary">Login</button>
                                     </div>
