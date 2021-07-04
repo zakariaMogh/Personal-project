@@ -74,10 +74,6 @@ class UserRepository extends BaseRepositories implements \App\Contracts\UserCont
     public function destroy($id)
     {
         $user = $this->findOneById($id);
-        if ($user->is_admin)
-        {
-            abort(405);
-        }
 
         if ($user->pic)
         {

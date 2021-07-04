@@ -10,6 +10,8 @@ class RepositoryServiceProvider extends ServiceProvider
         \App\Contracts\CategoryContract::class => \App\Repositories\CategoryRepository::class,
         \App\Contracts\UserContract::class => \App\Repositories\UserRepository::class,
         \App\Contracts\PostContract::class => \App\Repositories\PostRepository::class,
+        \App\Contracts\CommentContract::class => \App\Repositories\CommentRepository::class,
+
     ];
 
     /**

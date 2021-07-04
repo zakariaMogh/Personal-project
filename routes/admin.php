@@ -22,5 +22,8 @@ Route::middleware('auth:admin')->group(function (){
     Route::resource('posts', \App\Http\Controllers\Admin\PostController::class);
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
     Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+
+    Route::delete('/posts/comment/{id}', [\App\Http\Controllers\PostController::class, 'destroyComment'])->name('posts.comments.destroy');
+
 });
 

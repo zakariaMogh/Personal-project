@@ -6,4 +6,11 @@ return [
     'delete' => ':Name Has Been Deleted Successfully',
 
     'fails' => 'Oops! Something Went Wrong! please try again',
+
+
+    'comment' => 'Comment',
+    'user' => 'User',
+    'post' => 'Post',
+    'category' => 'Category',
+
 ];

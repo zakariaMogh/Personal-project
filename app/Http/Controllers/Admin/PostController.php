@@ -49,9 +49,8 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $this->post->new($request->validated());
-
         try {
+            $this->post->new($request->validated());
             session()->flash('success',__('messages.create',['name' => __('messages.post')]));
             return redirect()->route('admin.posts.index');
         }catch (\Exception $exception)
