@@ -18,6 +18,7 @@ Route::post('login',[\App\Http\Controllers\Admin\Auth\AdminLoginController::clas
 
 Route::middleware('auth:admin')->group(function (){
     Route::any('logout',[\App\Http\Controllers\Admin\Auth\AdminLoginController::class,'logout'])->name('logout');
+    Route::get('',[\App\Http\Controllers\Admin\PostController::class,'index']);
     Route::resource('posts', \App\Http\Controllers\Admin\PostController::class);
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
     Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);

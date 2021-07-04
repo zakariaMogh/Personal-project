@@ -14,7 +14,8 @@
     <label for="categories">Categories</label>
     <select name="categories[]" id="categories" multiple class="form-control @error('categories') is-invalid @enderror">
         @foreach($categories as $category)
-            <option value="{{$category->id}}" {{isset($post) ? ($post->categories->contains($category->id) ? 'selected' : '') : ''}}>{{$category->name}}</option>
+            <option
+                value="{{$category->id}}" {{isset($post) ? ($post->categories->contains($category->id) ? 'selected' : '') : ''}}>{{$category->name}}</option>
         @endforeach
     </select>
 </div>
@@ -37,9 +38,9 @@
 @enderror
 
 <div class="form-group">
-    <label for="content">Cover</label>
+    <label for="cover">Cover</label>
     <input type="file" class="form-control @error('cover') is-invalid @enderror" id="cover" name="cover"
-           placeholder="cover">
+           placeholder="cover" accept="image/*"
 
 </div>
 @error('cover')
@@ -47,3 +48,26 @@
     {{$message}}
 </div>
 @enderror
+
+<div class="form-group">
+    <img class="card-img-top"
+         src="{{isset($post) ? asset($post->img_url) : asset('assets/front/images/default-post.png')}}"
+         alt="{{isset($post) ? $post->title : ''}}"
+         id="imagePreview"
+    />
+</div>
+
+@push('js')
+    <script>
+        let image = document.querySelector('#imagePreview');
+        let input = document.querySelector('#cover')
+        input.addEventListener('change', event => {
+            image.src = URL.createObjectURL(event.target.files[0])
+            image.onload = () => {
+                URL.revokeObjectURL(image.src) // free memory
+            }
+            // $('#defaultImg').addClass('d-none')
+            // $('#imagePreview').removeClass('d-none')
+        });
+    </script>
+@endpush

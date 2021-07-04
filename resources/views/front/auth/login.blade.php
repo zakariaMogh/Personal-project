@@ -34,7 +34,7 @@
                                         <div class="alert alert-danger">{{session('error')}}</div>
                                     </div>
                                 @endif
-                                <form action="{{route('admin.login')}}" method="post">
+                                <form action="{{route('login')}}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         <label class="form-label" for="inputEmailAddress">Email</label>
@@ -59,7 +59,7 @@
                                     @enderror
 
                                     <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <button class="btn btn-sign hover-btn" >S'identifier</button>
+                                        <button class="btn btn-sign hover-btn">S'identifier</button>
                                     </div>
                                 </form>
                             </div>

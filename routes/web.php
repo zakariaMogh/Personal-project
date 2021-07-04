@@ -14,7 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('login',[\App\Http\Controllers\Auth\LoginController::class,'index'])->name('login.index');
+Route::post('login',[\App\Http\Controllers\Auth\LoginController::class,'login'])->name('login');
+
+Route::middleware('auth:user')->group(function () {
+    Route::any('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+});
+
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/posts/{slug}', [\App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
 
 
+Route::redirect('/', 'home');
