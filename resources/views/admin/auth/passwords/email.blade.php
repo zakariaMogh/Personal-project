@@ -42,9 +42,9 @@
                                                placeholder="Adresse Email" name="email">
                                     </div>
                                     <div>
-                <span class="text-muted small mt-1">
-                    Enter the email address associated with your account
-                </span>
+                                    <span class="text-muted small mt-1">
+                                            Enter the email address associated with your account
+                                    </span>
                                     </div>
                                     @error('email')
                                     <span class="text-danger" >

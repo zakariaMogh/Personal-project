@@ -27,9 +27,8 @@ class PostController extends Controller
 
     public function storeComment(CommentRequest $request)
     {
-        $this->comment->new($request->validated());
-
         try {
+            $this->comment->new($request->validated());
             session()->flash('success',__('messages.create',['name' => __('messages.comment')]));
         }catch (\Exception $exception)
         {

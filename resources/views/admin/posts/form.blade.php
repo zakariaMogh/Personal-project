@@ -66,8 +66,6 @@
             image.onload = () => {
                 URL.revokeObjectURL(image.src) // free memory
             }
-            // $('#defaultImg').addClass('d-none')
-            // $('#imagePreview').removeClass('d-none')
         });
     </script>
 @endpush

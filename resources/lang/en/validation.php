@@ -151,6 +151,14 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'post' => 'Post',
+        'content' => 'Content',
+        'description' => 'Description',
+        'email' => 'Email',
+        'title' => 'Title',
+        'name' => 'Name',
+        'cover' => 'Cover image',
+    ],
 
 ];
