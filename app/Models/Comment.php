@@ -20,7 +20,16 @@ class Comment extends Pivot
 
     public function scopeAuthUser($query): Builder
     {
-        return $query->where('user_id', auth()->guard('user')->id());
+        if (auth()->user()->is_admin)
+        {
+            return $query;
+        }
+
+        return $query->where('user_id', auth()->id())
+            ->orWhereHas('post', function ($q)
+            {
+                $q->where('user_id', auth()->id());
+            });
     }
 
     public function user(): BelongsTo

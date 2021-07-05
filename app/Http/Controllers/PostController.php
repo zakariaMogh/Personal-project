@@ -45,8 +45,9 @@ class PostController extends Controller
      */
     public function destroyComment($id)
     {
+        $this->comment->destroy($id);
+
         try {
-            $this->comment->destroy($id);
             session()->flash('success',__('messages.delete',['name' => __('messages.comment')]));
         }catch (\Exception $exception)
         {

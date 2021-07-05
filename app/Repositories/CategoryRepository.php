@@ -61,4 +61,13 @@ class CategoryRepository extends BaseRepositories implements \App\Contracts\Cate
         return $category->delete();
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function count(array $scopes = [])
+    {
+        return Category::scopes($scopes)
+            ->count();
+    }
+
 }

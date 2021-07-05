@@ -4,6 +4,9 @@
 namespace App\QueryFilter;
 
 
+use App\Models\Post;
+use App\Models\User;
+
 class Search extends Filter
 {
 
@@ -15,21 +18,26 @@ class Search extends Filter
             return $builder;
         }
 
-        if (request()->is([
-            'admin/posts*',
-            'home'
-        ]))
+
+        if ($builder->getModel() instanceof Post)
         {
             return $builder->where('title','like','%'.$q.'%');
         }
 
-        if (request()->is([
-            'admin/users*'
-        ]))
+        if ($builder->getModel() instanceof User)
         {
             return $builder->where('name','like','%'.$q.'%')
                 ->orWhere('email','like','%'.$q.'%');
         }
+
+        if (request()->is('user/categories'))
+        {
+            if ($builder->getModel() instanceof \App\Models\Category)
+            {
+                return $builder->where('name','like','%'.$q.'%');
+            }
+        }
+
 
         return $builder;
     }

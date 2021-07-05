@@ -27,6 +27,7 @@ class UserRequest extends FormRequest
             'name' => 'required|string|max:40',
             'email' => 'required|email|max:90|unique:users',
             'password' => 'required|string|min:8|max:40|confirmed',
+            'is_admin' => 'required|in:0,1',
         ];
 
         if ($this->method() === 'PUT')

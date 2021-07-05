@@ -4,6 +4,8 @@
 namespace App\QueryFilter;
 
 
+use App\Models\Post;
+
 class Category extends Filter
 {
 
@@ -14,9 +16,7 @@ class Category extends Filter
             return $builder;
         }
 
-        if (request()->is([
-            'home'
-        ])) {
+        if ($builder->getModel() instanceof Post) {
             return $builder->whereHas('categories', function ($q) use ($category) {
                 $q->where('slug', $category);
             });

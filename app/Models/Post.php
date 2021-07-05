@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,6 +26,11 @@ class Post extends Model
         return $this->cover ? 'storage/'.$this->cover : 'assets/front/images/default-post.png';
     }
 
+    public function scopeAuthUser($query): Builder
+    {
+        return auth()->user()->is_admin ? $query : $query->where('user_id', auth()->id());
+    }
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
@@ -38,5 +44,10 @@ class Post extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class)->with('user');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

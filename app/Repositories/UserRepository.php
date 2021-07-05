@@ -5,7 +5,6 @@ namespace App\Repositories;
 
 
 use App\Models\User;
-use Illuminate\Http\UploadedFile;
 
 class UserRepository extends BaseRepositories implements \App\Contracts\UserContract
 {
@@ -61,6 +60,15 @@ class UserRepository extends BaseRepositories implements \App\Contracts\UserCont
         $user = $this->findOneById($id);
 
         return $user->delete();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function count(array $scopes = [])
+    {
+        return User::scopes($scopes)
+            ->count();
     }
 
 }

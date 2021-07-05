@@ -30,6 +30,7 @@ class PostFactory extends Factory
             'title' => $title,
             'slug' => $slug,
             'content' => $this->faker->text(),
+            'user_id' => 1
         ];
     }
 }

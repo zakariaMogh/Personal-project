@@ -14,23 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('login',[\App\Http\Controllers\Auth\LoginController::class,'index'])->name('login.index');
-Route::post('login',[\App\Http\Controllers\Auth\LoginController::class,'login'])->name('login');
 
-Route::get('register',[\App\Http\Controllers\Auth\RegisterController::class,'index'])->name('register.index');
-Route::post('register',[\App\Http\Controllers\Auth\RegisterController::class,'register'])->name('register');
-
-Route::get('password/reset/{token}',[\App\Http\Controllers\Auth\ResetPasswordController::class,'showResetForm'])->name('password.reset');
-Route::post('password/reset',[\App\Http\Controllers\Auth\ResetPasswordController::class,'reset'])->name('reset');
-
-Route::get('forgot/password',[\App\Http\Controllers\Auth\ForgotPasswordController::class,'showLinkRequestForm'])->name('forgot.password.email');
-Route::post('forgot/password',[\App\Http\Controllers\Auth\ForgotPasswordController::class,'sendResetLinkEmail'])->name('forgot.password.send');
-
-Route::middleware('auth:user')->group(function () {
-    Route::any('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-    Route::post('/posts/comment', [\App\Http\Controllers\PostController::class, 'storeComment'])->name('posts.comments.store');
-    Route::delete('/posts/comment/{id}', [\App\Http\Controllers\PostController::class, 'destroyComment'])->name('posts.comments.destroy');
-});
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/posts/{slug}', [\App\Http\Controllers\PostController::class, 'show'])->name('posts.show');

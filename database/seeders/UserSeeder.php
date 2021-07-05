@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'email' => 'user@app.com',
             'password' => bcrypt('password'),
             'email_verified_at' => now(),
+            'is_admin' => true,
         ]);
 
         User::factory()->count(3)

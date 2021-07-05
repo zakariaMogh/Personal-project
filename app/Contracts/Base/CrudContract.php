@@ -43,4 +43,10 @@ interface CrudContract
      * @return mixed
      */
     public function destroy($id);
+
+    /**
+     * @param array $scopes
+     * @return mixed
+     */
+    public function count(array $scopes = []);
 }

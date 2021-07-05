@@ -46,7 +46,8 @@ class PostRepository extends BaseRepositories implements \App\Contracts\PostCont
         return $this->applyFilter($query, $per_page,
         [
             Category::class,
-        ]);
+        ]
+        );
     }
 
 
@@ -58,9 +59,16 @@ class PostRepository extends BaseRepositories implements \App\Contracts\PostCont
         if (array_key_exists('cover', $data) && $data['cover'] instanceof UploadedFile) {
             $data['cover'] = $this->uploadOne($data['cover'], 'post');
         }
-        $data['slug'] = Str::slug($data['title']);
 
-        return Post::create($data);
+        if (!isset($data['categories']))
+        {
+            $data['categories'] = [];
+        }
+
+        $data['slug'] = Str::slug($data['title']);
+        $post = auth()->user()->posts()->create($data);
+        $post->categories()->attach($data['categories']);
+        return $post;
     }
 
     /**
@@ -68,7 +76,7 @@ class PostRepository extends BaseRepositories implements \App\Contracts\PostCont
      */
     public function update($id, array $data)
     {
-        $post = $this->findOneById($id);
+        $post = $this->findOneById($id, [], ['*'], ['authUser']);
 
         if (array_key_exists('cover', $data) && $data['cover'] instanceof UploadedFile) {
             if ($post->cover) {
@@ -76,6 +84,12 @@ class PostRepository extends BaseRepositories implements \App\Contracts\PostCont
             }
             $data['cover'] = $this->uploadOne($data['cover'], 'post');
         }
+
+        if (!isset($data['categories']))
+        {
+            $data['categories'] = [];
+        }
+
         $data['slug'] = Str::slug($data['title']);
         $post->update($data);
 
@@ -88,12 +102,22 @@ class PostRepository extends BaseRepositories implements \App\Contracts\PostCont
      */
     public function destroy($id)
     {
-        $post = $this->findOneById($id);
+        $post = $this->findOneById($id, [], ['*'], ['authUser']);
         if ($post->cover) {
             $this->deleteOne($post->cover);
         }
 
         return $post->delete();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function count(array $scopes = [])
+    {
+        return Post::scopes($scopes)
+            ->count();
     }
 
 }

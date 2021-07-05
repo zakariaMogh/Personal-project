@@ -8,12 +8,12 @@
                 <li class="nav-item"><a class="nav-link {{request()->is('contact') ? 'active' : ''}}" href="{{route('contact')}}">Contact</a></li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                @auth('user')
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="#">{{auth()->guard('user')->user()->name}}</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{route('logout')}}">Logout</a></li>
+                @auth
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="{{route('user.home')}}">{{auth()->user()->name}}</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{route('user.logout')}}">Logout</a></li>
                 @else
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="{{route('register.index')}}">Register</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{route('login.index')}}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="{{route('user.register.index')}}">Register</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{route('user.login.index')}}">Login</a></li>
                 @endauth
             </ul>
         </div>

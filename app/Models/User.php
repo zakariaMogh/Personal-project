@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin'
     ];
 
     /**
@@ -43,13 +44,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts(): BelongsToMany
+    public function comments(): BelongsToMany
     {
         return $this->belongsToMany(Post::class, 'comments')->using(Comment::class)->withPivot(['content', 'id']);
     }
 
-    public function comments(): HasMany
+//    public function comments(): HasMany
+//    {
+//        return $this->hasMany(Comment::class);
+//    }
+
+    public function posts(): HasMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Post::class);
     }
 }

@@ -31,9 +31,8 @@ class CommentRepository extends BaseRepositories implements \App\Contracts\Comme
      */
     public function new(array $data)
     {
-        return auth()->guard('user')
-            ->user()
-            ->posts()
+        return auth()->user()
+            ->comments()
             ->attach($data['post'], ['content' => $data['content']]);;
     }
 
@@ -52,14 +51,17 @@ class CommentRepository extends BaseRepositories implements \App\Contracts\Comme
      */
     public function destroy($id)
     {
-        if (auth()->guard('admin')->check())
-        {
-            $comment = $this->findOneById($id);
-
-        }else{
-            $comment = $this->findOneById($id, [], ['*'], ['authUser']);
-        }
+        $comment = $this->findOneById($id, [], ['*'], ['authUser']);
         return $comment->delete();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function count(array $scopes = [])
+    {
+        return Comment::scopes($scopes)
+            ->count();
     }
 
 }
