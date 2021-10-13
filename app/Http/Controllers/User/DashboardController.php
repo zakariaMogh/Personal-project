@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $comments_count = $this->comment->count(['authUser']);
         $categories_count = $this->category->count();
 
-        $categories = $this->category->setPerPage(-1)->setWithCount(['posts'])->findByFilter();
+        $categories = $this->category->setPerPage(-1)->setCounts(['posts'])->findByFilter();
 
         return view('user.dashboard', compact('users_count', 'posts_count', 'comments_count', 'categories', 'categories_count'));
 

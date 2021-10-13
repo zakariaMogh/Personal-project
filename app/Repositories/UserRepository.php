@@ -54,13 +54,6 @@ class UserRepository extends BaseRepositories implements \App\Contracts\UserCont
         return $user->delete();
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function count(array $scopes = [])
-    {
-        return User::scopes($scopes)
-            ->count();
-    }
+
 
 }

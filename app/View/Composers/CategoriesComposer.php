@@ -19,7 +19,7 @@ class CategoriesComposer
 
     public function compose(View $view)
     {
-        $categories = $this->category->findByFilter();
+        $categories = $this->category->setPerPage(-1)->findByFilter();
         $view->with(['categories' => $categories]);
     }
 }

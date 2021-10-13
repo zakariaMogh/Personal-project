@@ -83,13 +83,6 @@ class PostRepository extends BaseRepositories implements \App\Contracts\PostCont
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function count(array $scopes = [])
-    {
-        return Post::scopes($scopes)
-            ->count();
-    }
+
 
 }

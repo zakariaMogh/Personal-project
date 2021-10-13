@@ -48,13 +48,6 @@ class CommentRepository extends BaseRepositories implements \App\Contracts\Comme
         return $comment->delete();
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function count(array $scopes = [])
-    {
-        return Comment::scopes($scopes)
-            ->count();
-    }
+
 
 }

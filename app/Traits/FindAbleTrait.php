@@ -79,6 +79,15 @@ trait FindAbleTrait
         return $this->applyFilter($query);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function count(array $scopes = [])
+    {
+        return $this->model::scopes($scopes)
+            ->count();
+    }
+
     public function setPerPage($per_page): BaseRepositories
     {
         $this->per_page = is_numeric($per_page) ? $per_page : 10;
