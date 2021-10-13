@@ -15,7 +15,7 @@ class HomeController extends Controller
     }
     public function index()
     {
-        $posts = $this->post->findByFilter(6);
+        $posts = $this->post->setPerPage(6)->findByFilter();
         return view('front.home', compact('posts'));
     }
 }

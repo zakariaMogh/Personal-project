@@ -21,19 +21,14 @@ class PostController extends Controller
     }
     public function show($slug)
     {
-        $post = $this->post->findOneBySlug($slug, ['categories', 'users']);
+        $post = $this->post->setRelations(['categories', 'users'])->findOneBy(['slug' => $slug]);
         return view('front.posts.show', compact('post'));
     }
 
     public function storeComment(CommentRequest $request)
     {
-        try {
-            $this->comment->new($request->validated());
-            session()->flash('success',__('messages.create',['name' => __('messages.comment')]));
-        }catch (\Exception $exception)
-        {
-            session()->flash('error',__('messages.fails'));
-        }
+        $this->comment->new($request->validated());
+        session()->flash('success',__('messages.create',['name' => __('messages.comment')]));
         return redirect()->back();
     }
 
