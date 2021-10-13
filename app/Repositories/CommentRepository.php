@@ -5,25 +5,18 @@ namespace App\Repositories;
 
 
 use App\Models\Comment;
+use App\Traits\FindAbleTrait;
 
 
 class CommentRepository extends BaseRepositories implements \App\Contracts\CommentContract
 {
     /**
-     * @inheritDoc
+     * @param Comment $model
+     * @param array $filters
      */
-    public function findOneById($id, array $relations = [], array $columns = ['*'], array $scopes = [])
+    public function __construct(Comment $model, array $filters = [])
     {
-        return Comment::with($relations)->select($columns)->scopes($scopes)->findOrFail($id);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function findByFilter($per_page = 10, array $relations = [], array $columns = ['*'], array $scopes = [])
-    {
-        $query = Comment::with($relations)->select($columns)->scopes($scopes)->newQuery();
-        return $this->applyFilter($query, $per_page);
+        parent::__construct($model, $filters);
     }
 
     /**

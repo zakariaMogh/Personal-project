@@ -5,7 +5,6 @@ namespace App\Repositories;
 
 
 use App\Models\Post;
-use App\QueryFilter\Category;
 use App\Traits\UploadAble;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -15,39 +14,12 @@ class PostRepository extends BaseRepositories implements \App\Contracts\PostCont
     use UploadAble;
 
     /**
-     * @inheritDoc
+     * @param Post $model
+     * @param array $filters
      */
-    public function findOneById($id, array $relations = [], array $columns = ['*'], array $scopes = [])
+    public function __construct(Post $model, array $filters = [])
     {
-        return Post::with($relations)
-            ->select($columns)
-            ->scopes($scopes)
-            ->findOrFail($id);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function findOneBySlug($slug, array $relations = [], array $columns = ['*'], array $scopes = [])
-    {
-        return Post::with($relations)
-            ->select($columns)
-            ->scopes($scopes)
-            ->where('slug', $slug)
-            ->first();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function findByFilter($per_page = 10, array $relations = [], array $columns = ['*'], array $scopes = [])
-    {
-        $query = Post::with($relations)->select($columns)->scopes($scopes)->newQuery();
-        return $this->applyFilter($query, $per_page,
-        [
-            Category::class,
-        ]
-        );
+        parent::__construct($model, $filters);
     }
 
 

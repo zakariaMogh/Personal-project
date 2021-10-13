@@ -5,32 +5,19 @@ namespace App\Repositories;
 
 
 use App\Models\Category;
-use App\Traits\UploadAble;
 use Illuminate\Support\Str;
 
 class CategoryRepository extends BaseRepositories implements \App\Contracts\CategoryContract
 {
 
     /**
-     * @inheritDoc
+     * @param Category $model
+     * @param array $filters
      */
-    public function findOneById($id, array $relations = [], array $columns = ['*'], array $scopes = [])
+    public function __construct(Category $model, array $filters = [])
     {
-        return Category::with($relations)
-            ->select($columns)
-            ->scopes($scopes)
-            ->findOrFail($id);
+        parent::__construct($model, $filters);
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function findByFilter($per_page = 10, array $relations = [], array $columns = ['*'], array $scopes = [])
-    {
-        $query = Category::with($relations)->select($columns)->scopes($scopes)->newQuery();
-        return $this->applyFilter($query, $per_page);
-    }
-
 
     /**
      * @inheritDoc

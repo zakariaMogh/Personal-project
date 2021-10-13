@@ -5,23 +5,28 @@ namespace App\Repositories;
 
 
 use App\QueryFilter\Search;
+use App\Traits\FindAbleTrait;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Routing\Pipeline;
 
 abstract class BaseRepositories
 {
-    private $base_filters = [
-        Search::class,
-    ];
+    use FindAbleTrait;
 
-    protected function applyFilter($query, $per_page = 10,array $filters = null){
+    public function __construct(Model $model, array $filters = [])
+    {
+        $this->model = $model;
+        $this->filters = $filters;
+    }
 
-        $filters = is_null($filters) ? $this->base_filters : array_merge($filters,$this->base_filters);
-
+    protected function applyFilter($query)
+    {
         $result = app(Pipeline::class)
             ->send($query)
-            ->through($filters)
-            ->thenReturn();
-
-        return $per_page > 0 ? $result->paginate($per_page) : $result->get();
+            ->through($this->filters)
+            ->thenReturn()
+            ->latest();
+        return $this->getPerPage() > 0 ? $result->paginate($this->getPerPage())->withQueryString() : $result->get();
     }
+
 }

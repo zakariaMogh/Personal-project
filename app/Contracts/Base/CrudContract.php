@@ -6,24 +6,59 @@ namespace App\Contracts\Base;
 
 interface CrudContract
 {
+    /**
+     * @param $per_page
+     * @return mixed
+     */
+    public function setPerPage($per_page);
+
+
+    /**
+     * @param array $relations
+     * @return mixed
+     */
+    public function setRelations(array $relations = []);
+
+    /**
+     * @param array $counts
+     * @return mixed
+     */
+    public function setCounts(array $counts = []);
+
+    /**
+     * @param array $columns
+     * @return mixed
+     */
+    public function setColumns(array $columns = ['*']);
+
+    /**
+     * @param array $scopes
+     * @return mixed
+     */
+    public function setScopes(array $scopes = []);
 
     /**
      * @param $id
-     * @param array $relations
-     * @param array $columns
-     * @param array $scopes
      * @return mixed
      */
-    public function findOneById($id, array $relations = [],array $columns = [], array $scopes = []);
+    public function findOneById($id);
 
     /**
-     * @param int $per_page
-     * @param array $relations
-     * @param array $columns
-     * @param array $scopes
+     * @param array $params
      * @return mixed
      */
-    public function findByFilter($per_page = 10, array $relations = [],array $columns = [], array $scopes = [] );
+    public function findOneBy(array $params);
+
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function findBy(array $params);
+
+    /**
+     * @return mixed
+     */
+    public function findByFilter();
 
     /**
      * @param array $data
@@ -43,10 +78,4 @@ interface CrudContract
      * @return mixed
      */
     public function destroy($id);
-
-    /**
-     * @param array $scopes
-     * @return mixed
-     */
-    public function count(array $scopes = []);
 }

@@ -9,20 +9,12 @@ use App\Models\User;
 class UserRepository extends BaseRepositories implements \App\Contracts\UserContract
 {
     /**
-     * @inheritDoc
+     * @param User $model
+     * @param array $filters
      */
-    public function findOneById($id, array $relations = [], array $columns = ['*'], array $scopes = [])
+    public function __construct(User $model, array $filters = [])
     {
-        return User::with($relations)->select($columns)->scopes($scopes)->findOrFail($id);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function findByFilter($per_page = 10, array $relations = [], array $columns = ['*'], array $scopes = [])
-    {
-        $query = User::with($relations)->select($columns)->scopes($scopes)->newQuery();
-        return $this->applyFilter($query,$per_page);
+        parent::__construct($model, $filters);
     }
 
     /**
