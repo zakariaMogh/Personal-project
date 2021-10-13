@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Contracts\UserContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use Illuminate\Contracts\Support\Renderable;
 
 class UserController extends Controller
 {
@@ -20,9 +21,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): Renderable
     {
-        $users = $this->user->findByFilter(10);
+        $users = $this->user->findByFilter();
         return view('user.users.index',compact('users'));
     }
 
@@ -31,7 +32,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): Renderable
     {
         return view('user.users.create');
     }
@@ -41,19 +42,13 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserRequest $request)
     {
-        try {
-            $this->user->new($request->validated());
-            session()->flash('success',__('messages.create',['name' => __('messages.user')]));
-            return redirect()->route('user.users.index');
-        }catch (\Exception $exception)
-        {
-            session()->flash('error',__('messages.fails'));
-            return redirect()->back();
-        }
+        $this->user->new($request->validated());
+        session()->flash('success',__('messages.create'));
+        return redirect()->route('user.users.index');
     }
 
     /**
@@ -62,7 +57,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id): Renderable
     {
         $user = $this->user->findOneById($id);
         return view('user.users.show',compact('user'));
@@ -74,7 +69,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): Renderable
     {
         $user = $this->user->findOneById($id);
         return view('user.users.edit',compact('user'));
@@ -83,39 +78,27 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UserRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UserRequest $request, $id)
     {
-        try {
-            $this->user->update($id, $request->validated());
-            session()->flash('success',__('messages.update',['name' => __('messages.user')]));
-            return redirect()->route('user.users.index');
-        }catch (\Exception $exception)
-        {
-            session()->flash('error',__('messages.fails'));
-            return redirect()->back();
-        }
+        $this->user->update($id, $request->validated());
+        session()->flash('success',__('messages.update'));
+        return redirect()->route('user.users.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        try {
-            $this->user->destroy($id);
-            session()->flash('success',__('messages.delete',['name' => __('messages.user')]));
-            return redirect()->route('user.users.index');
-        }catch (\Exception $exception)
-        {
-            session()->flash('error',__('messages.fails'));
-            return redirect()->back();
-        }
+        $this->user->destroy($id);
+        session()->flash('success',__('messages.delete'));
+        return redirect()->route('user.users.index');
     }
 }

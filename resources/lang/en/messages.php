@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'create' => ':Name Has Been Created Successfully',
-    'update' => ':Name Has Been Updated Successfully',
-    'delete' => ':Name Has Been Deleted Successfully',
+    'create' => 'Record Has Been Created Successfully',
+    'update' => 'Record Has Been Updated Successfully',
+    'delete' => 'Record Has Been Deleted Successfully',
 
     'fails' => 'Oops! Something Went Wrong! please try again',
 

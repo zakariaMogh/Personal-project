@@ -6,6 +6,8 @@ use App\Contracts\CategoryContract;
 use App\Contracts\PostContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -23,9 +25,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): Renderable
     {
-        $posts = $this->post->findByFilter(10, [], ['*'], ['authUser']);
+        $posts = $this->post->setScopes(['authUser'])->findByFilter();
         return view('user.posts.index',compact('posts'));
     }
 
@@ -34,7 +36,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): Renderable
     {
         $categories = $this->category->findByFilter();
         return view('user.posts.create', compact('categories'));
@@ -43,22 +45,15 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param PostRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(PostRequest $request)
     {
         $this->post->new($request->validated());
 
-        try {
-            session()->flash('success',__('messages.create',['name' => __('messages.post')]));
-            return redirect()->route('user.posts.index');
-        }catch (\Exception $exception)
-        {
-            session()->flash('error',__('messages.fails'));
-            return redirect()->back();
-        }
+        session()->flash('success',__('messages.create'));
+        return redirect()->route('user.posts.index');
     }
 
     /**
@@ -67,9 +62,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id): Renderable
     {
-        $post = $this->post->findOneById($id, [], ['*'], ['authUser']);
+        $post = $this->post->setScopes(['authUser'])->findOneById();
         return view('user.posts.show',compact('post'));
     }
 
@@ -79,49 +74,37 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): Renderable
     {
-        $post = $this->post->findOneById($id, [], ['*'], ['authUser']);
-        $categories = $this->category->findByFilter();
+        $post = $this->post->setScopes(['authUser'])->findOneById();
+        $categories = $this->category->setPerPage(-1)->findByFilter();
         return view('user.posts.edit',compact('post', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param PostRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(PostRequest $request, $id)
     {
-        try {
-            $this->post->update($id, $request->validated());
-            session()->flash('success',__('messages.update',['name' => __('messages.post')]));
-            return redirect()->route('user.posts.index');
-        }catch (\Exception $exception)
-        {
-            session()->flash('error',__('messages.fails'));
-            return redirect()->back();
-        }
+        $this->post->update($id, $request->validated());
+        session()->flash('success',__('messages.update'));
+        return redirect()->route('user.posts.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        try {
-            $this->post->destroy($id);
-            session()->flash('success',__('messages.delete',['name' => __('messages.post')]));
-            return redirect()->route('user.posts.index');
-        }catch (\Exception $exception)
-        {
-            session()->flash('error',__('messages.fails'));
-            return redirect()->back();
-        }
+        $this->post->destroy($id);
+        session()->flash('success',__('messages.delete'));
+        return redirect()->route('user.posts.index');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Contracts\CategoryContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use Illuminate\Contracts\Support\Renderable;
 
 class CategoryController extends Controller
 {
@@ -20,9 +21,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): Renderable
     {
-        $categories = $this->category->findByFilter(10);
+        $categories = $this->category->findByFilter();
         return view('user.categories.index', compact('categories'));
     }
 
@@ -31,7 +32,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): Renderable
     {
         return view('user.categories.create');
     }
@@ -39,21 +40,14 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param CategoryRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CategoryRequest $request)
     {
-        try {
-            $this->category->new($request->validated());
-            session()->flash('success',__('messages.create',['name' => __('messages.category')]));
-            return redirect()->route('user.categories.index');
-        }catch (\Exception $exception)
-        {
-            session()->flash('error',__('messages.fails'));
-            return redirect()->back();
-        }
+        $this->category->new($request->validated());
+        session()->flash('success',__('messages.create'));
+        return redirect()->route('user.categories.index');
     }
 
     /**
@@ -62,7 +56,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id): Renderable
     {
         $category = $this->category->findOneById($id);
         return view('user.categories.show', compact('category'));
@@ -74,7 +68,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): Renderable
     {
         $category = $this->category->findOneById($id);
         return view('user.categories.edit', compact('category'));
@@ -85,37 +79,25 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(CategoryRequest $request, $id)
     {
-        try {
-            $this->category->update($id, $request->validated());
-            session()->flash('success',__('messages.update',['name' => __('messages.category')]));
-            return redirect()->route('user.categories.index');
-        }catch (\Exception $exception)
-        {
-            session()->flash('error',__('messages.fails'));
-            return redirect()->back();
-        }
+        $this->category->update($id, $request->validated());
+        session()->flash('success',__('messages.update'));
+        return redirect()->route('user.categories.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        try {
-            $this->category->destroy($id);
-            session()->flash('success',__('messages.delete',['name' => __('messages.category')]));
-            return redirect()->route('user.categories.index');
-        }catch (\Exception $exception)
-        {
-            session()->flash('error',__('messages.fails'));
-            return redirect()->back();
-        }
+        $this->category->destroy($id);
+        session()->flash('success',__('messages.delete'));
+        return redirect()->route('user.categories.index');
     }
 }
