@@ -1,3 +1,6 @@
+## Introduction
+
+This is a simple blog project that update regulary to regroup all my newly learned skills
 ## Installation
 
 - commands :
